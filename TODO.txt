@@ -1,0 +1,39 @@
+Foi criado 3 keystores clientes para testes:
+    keystore.rodrigo password: Rodrigo
+    keystore.rodrigo alias: Rodrigo
+
+    keystore.miguel password: Miguel
+    keystore.miguel alias: Miguel
+
+    keystore.vasco password: myVasco
+    keystore.vasco alias: myVasco
+
+Foi criado 1 keystore servidor e foi importado um o certificado de chave pública para uma truststore client
+    keystore.server passwd: serverKeystore
+    keystore.server alias: myServer
+
+    truststore.client passwd: clientTruststore
+    truststore.client alias: myServer
+
+Para correr o servidor é preciso o seguinte:
+    TrokosServer port password-cifra keystore keystorePassword
+    Onde:
+        port = 45678
+        password-cifra = "cifrado"
+        keystore = "keystore.server"
+        keystorePassword = "serverKeystore"
+
+    Executar na Command Line: "java -jar TrokosServer.jar 45678 cifrado keystore.server serverKeystore"
+
+Para correr o cliente é preciso o seguinte:
+    Trokos IP:port truststore keystore keystorePassword userID
+    Onde:
+        IP:port = 127.0.0.1:45678
+        truststore = "truststore.client"
+        keystore = "keystore.rodrigo"
+        keystorePassword = "Rodrigo"
+        userID = Rodrigo
+
+    Para correr outros users é só trocar os parametros
+
+    Executar na Command Line: "java -jar TrokosServer.jar 127.0.0.1:45678 truststore.client keystore.rodrigo Rodrigo Rodrigo"

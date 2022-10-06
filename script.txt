@@ -1,0 +1,69 @@
+b                 -> no Rodrigo -> balance = 100
+m user10 10       -> no Rodrigo -> "USER NOT FOUND"
+b                 -> no Rodrigo -> balance = 100
+b                 -> no myVasco -> balance = 100
+m Rodrigo 150     -> no myVasco -> "INSUFFICIENT BALANCE"
+b                 -> no Rodrigo -> balance = 100
+b                 -> no myVasco -> balance = 100
+m Rodrigo 10      -> no myVasco -> "PAYMENT DONE"
+b                 -> no Rodrigo -> balance = 110
+b                 -> no myVasco -> balance = 90
+
+r user10 10       -> no Rodrigo -> "USER NOT FOUND"
+b                 -> no Rodrigo -> balance = 110
+b                 -> no myVasco -> balance = 90
+r myVasco 10      -> no Rodrigo -> "requestPayment para myVasco feito com amount 10"
+v                 -> no myVasco -> 0:10:myVasco
+p 10              -> no myVasco -> "REQUEST NOT FOUND"
+v                 -> no myVasco -> 0:10:myVasco
+p 0               -> no Miguel -> "INCOMPATIBLE USERID REQUEST"
+v                 -> no myVasco -> 0:10:myVasco
+p 0               -> no myVasco -> "PAY REQUEST SUCCESSFUL"
+v                 -> no myVasco -> sem requests
+b                 -> no Rodrigo -> balance = 120
+b                 -> no myVasco -> balance = 80
+r myVasco 100     -> no Rodrigo -> "requestPayment para myVasco feito com amount 100"
+p 1               -> no myVasco -> "INSUFFICIENT BALANCE"
+v                 -> no myVasco -> 1💯myVasco
+b                 -> no Rodrigo -> balance = 120
+b                 -> no myVasco -> balance = 80
+
+o 0               -> no Rodrigo -> "INVALID AMOUNT"
+o 10              -> no Rodrigo -> "The info in the QRCode is: 2:Rodrigo:10"
+c 10              -> no myVasco -> "REQUEST NOT FOUND"
+c 2               -> no myVasco -> "PAY REQUEST SUCCESSFUL"
+b                 -> no Rodrigo -> balance = 130
+b                 -> no myVasco -> balance = 70
+o 150             -> no Rodrigo -> "The info in the QRCode is: 3:Rodrigo:150"
+c 3               -> no myVasco -> "INSUFFICIENT BALANCE"
+b                 -> no Rodrigo -> balance = 130
+b                 -> no myVasco -> balance = 70
+
+n group1          -> no Rodrigo -> "GROUP CREATED"
+n group1          -> no Rodrigo -> "GROUP ALREADY EXISTS"
+g                 -> no Rodrigo -> verificar se esta certo
+a myVasco group1  -> no Rodrigo -> "USER ADDED TO GROUP"
+g                 -> no myVasco -> verificar se esta certo
+a myVasco group10 -> no Rodrigo -> "GROUP NOT FOUND"
+a Miguel group1   -> no myVasco -> "NOT GROUP OWNER"
+g                 -> no Rodrigo -> verificar se esta certo
+g                 -> no Miguel -> verificar se esta certo
+a myVasco group1  -> no Rodrigo -> "USER ALREADY IN GROUP"
+a user10 group1   -> no Rodrigo -> "USER NOT FOUND"
+a Miguel group1   -> no Rodrigo -> "USER ADDED TO GROUP"
+g                 -> no Rodrigo -> verificar se esta certo
+g                 -> no myVasco -> verificar se esta certo
+g                 -> no Miguel -> verificar se esta certo
+
+d group10 30    -> no Rodrigo -> "GROUP NOT FOUND"
+d group1 30     -> no myVasco -> "NOT GROUP OWNER"
+d group1 30     -> no Rodrigo -> "DIVIDE PAYMENT DONE"
+s group10       -> no Rodrigo -> "GROUP NOT FOUND"
+s group1        -> no myVasco -> "NOT GROUP OWNER"
+s group1        -> no Rodrigo -> verificar se esta certo
+p 4             -> no myVasco -> "PAY REQUEST SUCCESSFUL"
+s group1        -> no Rodrigo -> verificar se esta certo
+p 5             -> no Miguel -> "PAY REQUEST SUCCESSFUL"
+h group10       -> no Rodrigo -> "GROUP NOT FOUND"
+h group1        -> no myVasco -> "NOT GROUP OWNER"
+h group1        -> no Rodrigo -> verificar se esta certo
